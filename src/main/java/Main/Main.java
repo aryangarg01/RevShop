@@ -334,7 +334,6 @@ public class Main {
 		int productId = sc.nextInt();
 		switch (choice) {
 		case 1:
-
 			addWishlist(userDTO, productId);
 			
 		case 2:

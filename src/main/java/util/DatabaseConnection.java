@@ -11,10 +11,11 @@ public class DatabaseConnection {
 		String password = "Aryan@123";
 		
 		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			connection = DriverManager.getConnection(url, user, password);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	public static DatabaseConnection getInstance() {
