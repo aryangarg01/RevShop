@@ -189,12 +189,12 @@ public class Main {
 	public static void AddToProduct(UserDTO userDTO, Category category, String prodName, double price,
 			String description, int quantity, int thresholdQty) {
 		Product prod = new Product(userDTO.getUserId(), category.getCategoryId(), prodName, price, description,
-				quantity, thresholdQty);
+				quantity, thresholdQty, 100);
 		prodService.addProductToDB(prod);
 	}
 
 	public static List<ProductDTO> getProducts(UserDTO userDTO) {
-		List<ProductDTO> list = prodService.getAllProducts(userDTO);
+		List<ProductDTO> list = prodService.getAllProducts(userDTO.getUserId());
 		for (ProductDTO i : list) {
 			System.out.println(i);
 		}
@@ -204,7 +204,7 @@ public class Main {
 	public static void editProduct(Product product, String prodName, double price, String description, int quantity,
 			int thresholdQty) {
 		Product product1 = new Product(product.getUserId(), product.getCategoryId(), prodName, price, description,
-				quantity, thresholdQty);
+				quantity, thresholdQty, 100);
 		product1.setProdId(product.getProdId());
 		prodService.updateProduct(product1);
 	}

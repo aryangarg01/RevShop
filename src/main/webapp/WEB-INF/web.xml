@@ -47,16 +47,46 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Product</servlet-name>
-    <url-pattern>/Product</url-pattern>
+    <url-pattern>/api/v1/product</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ProductServlet</display-name>
-    <servlet-name>ProductServlet</servlet-name>
-    <servlet-class>servlets.ProductServlet</servlet-class>
+    <display-name>Seller</display-name>
+    <servlet-name>Seller</servlet-name>
+    <servlet-class>servlets.Seller</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ProductServlet</servlet-name>
-    <url-pattern>/api/v1/product</url-pattern>
+    <servlet-name>Seller</servlet-name>
+    <url-pattern>/api/v1/seller</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Buyer</display-name>
+    <servlet-name>Buyer</servlet-name>
+    <servlet-class>servlets.Buyer</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Buyer</servlet-name>
+    <url-pattern>/api/v1/user</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CartServlet</display-name>
+    <servlet-name>CartServlet</servlet-name>
+    <servlet-class>servlets.CartServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CartServlet</servlet-name>
+    <url-pattern>/api/v1/cart</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>WishlistServlet</display-name>
+    <servlet-name>WishlistServlet</servlet-name>
+    <servlet-class>servlets.WishlistServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WishlistServlet</servlet-name>
+    <url-pattern>/api/v1/wishlist</url-pattern>
   </servlet-mapping>
 </web-app>

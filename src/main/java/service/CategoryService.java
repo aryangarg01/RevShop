@@ -23,4 +23,8 @@ public class CategoryService {
 	public ArrayList<String> getCategories() {
 		return categoryDAO.getAllCategory();
 	}
+	
+	public String getCategoryType(int categoryId) {
+		return categoryDAO.getCategoryNameById(categoryId);
+	}
 }

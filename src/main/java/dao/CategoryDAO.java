@@ -46,4 +46,20 @@ public class CategoryDAO {
 		}
 		return categories;
 	}
+	
+	public String getCategoryNameById(int categoryId) {
+		String type = "";
+		String query = "Select type from category where category_id = ?";
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, categoryId);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {				
+				type = rs.getString("type");
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return type;
+	}
 }

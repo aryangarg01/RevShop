@@ -2,6 +2,8 @@ package dao;
 
 import util.DatabaseConnection;
 import java.sql.*;
+
+import dto.ProductDTO;
 import entity.Product;
 
 public class ProductDAO {
@@ -83,15 +85,15 @@ public class ProductDAO {
 				
 	}
 	
-	public Product getProduct(int productId) {
-		Product product = null;
+	public ProductDTO getProduct(int productId) {
+		ProductDTO product = null;
 		String query = "Select * from products where product_id = ?";
 		try(PreparedStatement ps = connection.prepareStatement(query)){
 			ps.setInt(1, productId);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {				
-				product = new Product(rs.getInt("user_id"), rs.getInt("category_id"), rs.getString("product_name"), rs.getDouble("price"),
-						rs.getString("description"), rs.getInt("quantity"), rs.getInt("threshold_quantity"));
+				product = new ProductDTO(rs.getInt("user_id"), rs.getInt("category_id"), rs.getString("product_name"), rs.getDouble("price"),
+						rs.getString("description"), rs.getInt("quantity"), rs.getInt("threshold_quantity"), rs.getInt("discount"));
 				product.setProdId(rs.getInt("product_id"));
 			}
 		}

@@ -11,11 +11,12 @@ public class WishlistDAO {
 		connection = DatabaseConnection.getInstance().getConnection();
 	}
 	
-	public void removeProductFromWishlist(int productId) {
-		String query = "Delete from wishlist where product_id = ?";
+	public void removeProductFromWishlist(int productId, int userId) {
+		String query = "Delete from favourites where product_id = ? and buyer_id = ?";
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setInt(1, productId);
+			ps.setInt(2, userId);
 			ps.execute();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -23,16 +24,29 @@ public class WishlistDAO {
 	}
 
 	public void addProductToWishlist(int buyerId, int productId) {
-		String query = "insert into wishlist(buyer_id, product_id) values(?,?)";
+		String query = "insert into favourites(buyer_id, product_id) values(?,?)";
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setInt(1, buyerId);
 			ps.setInt(2, productId);
-			ps.execute();
+			int rows = ps.executeUpdate();
+			System.out.println("affected rows: " + rows);
 			System.out.println("Buyer ID: " + buyerId + " " + "Product ID: " + productId);
 		}catch(Exception e) {
 			e.printStackTrace();
+		}	
+	}
+	
+	public ResultSet getAllProducts(int userId) {
+		ResultSet rs = null;
+		String query = "Select * from favourites where buyer_id = ?";
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, userId);
+			rs = ps.executeQuery();
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
-		
+		return rs;
 	}
 }

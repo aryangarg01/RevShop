@@ -9,8 +9,9 @@ public class Product {
 	private String description;
 	private int quantity;
 	private int thresholdQty;
+	private int discount;
 	
-	public Product(int userId, int categoryId, String prodName, double price, String description, int quantity, int thresholdQty) {
+	public Product(int userId, int categoryId, String prodName, double price, String description, int quantity, int thresholdQty, int discount) {
 		this.setPrice(price);
 		this.setProdName(prodName);
 		this.setQuantity(quantity);
@@ -18,6 +19,7 @@ public class Product {
 		this.userId = userId;
 		this.categoryId = categoryId;
 		this.thresholdQty = thresholdQty;
+		this.discount = discount;
 	}
 	
 	public String getProdName() {
@@ -82,6 +84,14 @@ public class Product {
 
 	public void setThresholdQty(int thresholdQty) {
 		this.thresholdQty = thresholdQty;
+	}
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
 	}
 	
 	

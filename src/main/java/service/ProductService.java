@@ -4,7 +4,6 @@ import java.util.*;
 import java.sql.*;
 import dao.ProductDAO;
 import dto.ProductDTO;
-import dto.UserDTO;
 import entity.Product;
 
 public class ProductService {
@@ -18,54 +17,63 @@ public class ProductService {
 		productDAO.addProduct(product);
 	}
 
-	public List<ProductDTO> getAllProducts(UserDTO userDTO) {
-		int userId = userDTO.getUserId();
+	CategoryService catService = new CategoryService();
+	public List<ProductDTO> getAllProducts(int userId) {
 		List<ProductDTO> allProducts = new ArrayList<>();
 		ResultSet rs = productDAO.getProductsBySeller(userId);
 		try {
 			while (rs.next()) {
-				allProducts.add(
-						new ProductDTO(rs.getInt("product_id"), rs.getInt("category_id"), rs.getString("product_name"), rs.getDouble("price"), rs.getString("description"), rs.getInt("quantity")));
+				ProductDTO product = new ProductDTO(rs.getInt("product_id"), rs.getInt("category_id"),
+						rs.getString("product_name"), rs.getDouble("price"), rs.getString("description"),
+						rs.getInt("quantity"), rs.getInt("threshold_quantity"), rs.getInt("discount"));
+				String type = catService.getCategoryType(rs.getInt("category_id"));
+				product.setCategoryType(type);
+				allProducts.add(product);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return allProducts;
 	}
-	
+
 	public void updateProduct(Product product) {
 		productDAO.updateProduct(product);
 	}
-	
+
 	public void deleteProduct(int productId) {
 		productDAO.deleteProduct(productId);
 	}
-	
-	public Product getSingleProductDetail(int productId) {
+
+	public ProductDTO getSingleProductDetail(int productId) {
 		return productDAO.getProduct(productId);
 	}
-	
+
 	public List<ProductDTO> getAllProductsForCustomers() {
 		List<ProductDTO> allProducts = new ArrayList<>();
 		ResultSet rs1 = productDAO.getAllProductsFromTable();
 		try {
-			while(rs1.next()) {
-				allProducts.add(
-						new ProductDTO(rs1.getInt("product_id"), rs1.getInt("category_id"), rs1.getString("product_name"), rs1.getDouble("price"), rs1.getString("description"), rs1.getInt("quantity")));
+			while (rs1.next()) {
+				ProductDTO product = new ProductDTO(rs1.getInt("product_id"), rs1.getInt("category_id"),
+						rs1.getString("product_name"), rs1.getDouble("price"), rs1.getString("description"),
+						rs1.getInt("quantity"), rs1.getInt("threshold_quantity"), rs1.getInt("discount"));
+				String type = catService.getCategoryType(rs1.getInt("category_id"));
+				product.setCategoryType(type);
+				allProducts.add(product);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return allProducts;
 	}
-	
-	public List<ProductDTO> filterProducts(int categoryId){
+
+	public List<ProductDTO> filterProducts(int categoryId) {
 		List<ProductDTO> allProductsByCategory = new ArrayList<>();
 		ResultSet rs = productDAO.getProductsByCategory(categoryId);
 		try {
 			while (rs.next()) {
-				allProductsByCategory.add(
-						new ProductDTO(rs.getInt("product_id"), rs.getInt("category_id"), rs.getString("product_name"), rs.getDouble("price"), rs.getString("description"), rs.getInt("quantity")));
+				allProductsByCategory.add(new ProductDTO(rs.getInt("product_id"), rs.getInt("category_id"),
+						rs.getString("product_name"), rs.getDouble("price"), rs.getString("description"),
+						rs.getInt("quantity"), rs.getInt("threshold_quantity"), rs.getInt("discount")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -36,7 +36,6 @@ public class CartDAO {
 	
 	public ResultSet getAllProductsFromCart(int userID) {
 		ResultSet rs = null;
-//		String query = "Select * from cart join ";
 		String query = "Select * from cart where buyer_id = ?";
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);

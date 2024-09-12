@@ -1,0 +1,60 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="java.util.*"%>
+<%@ page import="dto.ProductDTO"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<%@ include file="buyerNav.jsp"%>
+	<h1>Wishlist</h1>
+	<div class="d-flex">
+		<%
+		List<ProductDTO> list = (ArrayList<ProductDTO>) request.getAttribute("allProducts");
+		for (ProductDTO i : list) {
+		%>
+		<div class="card m-2" style="width: 18rem;">
+			<img src="..." class="card-img-top" alt="product-img">
+			<div class="card-body">
+				<h5 class="card-title">
+					<%=i.getProdName()%></h5>
+				<p>
+					Price:
+					<%=i.getPrice()%></p>
+				<p class="card-text">
+					Description:
+					<%=i.getDescription()%></p>
+				<p class="card-text">
+					Category:
+					<%=i.getCategoryType()%>
+				</p>
+				<a class="btn btn-primary btn-sm" onclick="addToCart(<%= i.getProdId() %>)"> Add To Cart</a>
+				<a class="btn btn-primary btn-sm" onclick="removeFromWishlist(<%= i.getProdId() %>)">Remove From Wishlist</a>
+			</div>
+		</div>
+		<%
+		}
+		%>
+	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+		crossorigin="anonymous"></script>
+		<script>
+		const removeFromWishlist = (productId) => {
+			fetch("/rev_shop_demo/api/v1/wishlist?id="+productId, {
+				method: "DELETE",
+			}).then((response)=>{
+				console.log(response);
+			}).then((data)=>{
+				console.log(data);
+			}).catch((error)=>{
+				console.log(error);
+			})
+		}
+		</script>
+	</body>
+</html>

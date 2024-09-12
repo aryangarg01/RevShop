@@ -5,25 +5,27 @@ import dao.CartDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
+import dto.ProductDTO;
 import dto.UserDTO;
 import entity.Cart;
-import entity.Product;
 import exception.InvalidException;
 
 public class CartService {
 	CartDAO cartDAO;
-
+	ProductService prodService = new ProductService();
+	CategoryService catService = new CategoryService();
+	
 	public CartService() {
 		cartDAO = new CartDAO();
 	}
 
-	public void addToCart(UserDTO userDTO, int prodId, int quantity, ProductService prodService)
+	public void addToCart(int userId, int prodId, int quantity)
 			throws InvalidException {
-		Product prod = prodService.getSingleProductDetail(prodId);
+		ProductDTO prod = prodService.getSingleProductDetail(prodId);
 		if (quantity > prod.getQuantity()) {
 			throw new InvalidException("The quantity you entered is too high");
 		}
-		Cart cart = new Cart(userDTO.getUserId(), prodId, quantity);
+		Cart cart = new Cart(userId, prodId, quantity);
 		cartDAO.addProductToCart(cart);
 	}
 
@@ -45,5 +47,22 @@ public class CartService {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public List<ProductDTO> getProductFromCart(int userId){
+		List<ProductDTO> products = new ArrayList<>();
+		ResultSet rs = cartDAO.getAllProductsFromCart(userId);
+		try {
+			while(rs.next()) {
+				int productId = rs.getInt("product_id");
+				ProductDTO product = prodService.getSingleProductDetail(productId);
+				String type = catService.getCategoryType(product.getCategoryId());
+				product.setCategoryType(type);
+				products.add(product);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return products;
 	}
 }

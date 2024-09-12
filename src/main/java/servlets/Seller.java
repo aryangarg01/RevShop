@@ -1,29 +1,35 @@
 package servlets;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import jakarta.servlet.http.HttpSession;
+import service.ProductService;
 
-/**
- * Servlet implementation class ProductServlet
- */
-public class ProductServlet extends HttpServlet {
+import java.io.IOException;
+import java.util.*;
+
+import dto.ProductDTO;
+
+public class Seller extends HttpServlet {
+	ProductService productService = new ProductService();
 	private static final long serialVersionUID = 1L;
-  
-    public ProductServlet() {
+       
+    public Seller() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
+		List<ProductDTO> data = productService.getAllProducts((int) session.getAttribute("loggedInUserID"));
+		request.setAttribute("products", data);
+		request.getRequestDispatcher("/sellerDashboard.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		doGet(request, response);
 	}
 
 }

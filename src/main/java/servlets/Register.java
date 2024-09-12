@@ -21,7 +21,7 @@ public class Register extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		response.sendRedirect("http://localhost:8080/rev_shop_demo/index.jsp");
+		request.getRequestDispatcher("/register.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

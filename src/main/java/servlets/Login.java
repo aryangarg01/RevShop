@@ -4,6 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import service.Auth;
 
 import java.io.IOException;
@@ -29,16 +30,16 @@ public class Login extends HttpServlet {
 		String password = request.getParameter("password");
 		try {
 			UserDTO userDTO = auth.login(email, password);
-			System.out.println(userDTO.getUserId() + " " + userDTO.getRole());	
+			HttpSession session = request.getSession();
+			session.setAttribute("loggedInUserID", userDTO.getUserId());
 			if(userDTO.getRole() == 1) {
-				response.sendRedirect("/api/v1/buyer");
+				response.sendRedirect("/rev_shop_demo/api/v1/user");
 			}else if(userDTO.getRole() == 2){
-				response.sendRedirect("/api/v1/seller");
+				response.sendRedirect("/rev_shop_demo/api/v1/seller");
 			}
 		} catch (UserNotException e) {
 			e.printStackTrace();
 		}
-		doGet(request, response);
 	}
 
 }
