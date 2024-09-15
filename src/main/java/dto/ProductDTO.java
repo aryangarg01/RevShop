@@ -14,8 +14,9 @@ public class ProductDTO {
 	private int thresholdQty;
 	private String categoryType;
 	private int discount;
+	private String imgUrl;
 	
-	public ProductDTO(int prodId, int categoryId, String prodName, double price, String description, int quantity, int thresholdQty, int discount) {
+	public ProductDTO(int prodId, int categoryId, String prodName, double price, String description, int quantity, int thresholdQty, int discount, String imgUrl) {
 		this.categoryId = categoryId;
 		this.price = price;
 		this.prodName = prodName;
@@ -24,6 +25,7 @@ public class ProductDTO {
 		this.prodId = prodId;
 		this.thresholdQty = thresholdQty;
 		this.discount = discount;
+		this.setImgUrl(imgUrl);
 	}
 		
 	ArrayList<String> list = new ArrayList<>();
@@ -108,5 +110,13 @@ public class ProductDTO {
 
 	public void setDiscount(int discount) {
 		this.discount = discount;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 }

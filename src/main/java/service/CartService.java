@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import dto.ProductDTO;
-import dto.UserDTO;
 import entity.Cart;
 import exception.InvalidException;
 
@@ -29,13 +28,13 @@ public class CartService {
 		cartDAO.addProductToCart(cart);
 	}
 
-	public void removeProduct(int productId) {
-		cartDAO.deleteProductFromCart(productId);
+	public void removeProduct(int productId, int userId) {
+		cartDAO.deleteProductFromCart(productId, userId);
 	}
 
-	public List<Cart> viewCart(UserDTO userDTO) throws InvalidException {
+	public List<Cart> viewCart(int userId) throws InvalidException {
 		List<Cart> list = new ArrayList<>();
-		ResultSet rs = cartDAO.getAllProductsFromCart(userDTO.getUserId());
+		ResultSet rs = cartDAO.getAllProductsFromCart(userId);
 		if (rs == null) {
 			throw new InvalidException("Invalid user");
 		}
@@ -65,4 +64,13 @@ public class CartService {
 		}
 		return products;
 	}
+	
+	public void updateQuantity(int quantity, int productId, int userId) {
+		if(quantity > 0) {			
+			cartDAO.updateQuantityOfProduct(quantity, productId, userId);
+		}else {
+			cartDAO.deleteProductFromCart(productId, userId);
+		}
+	}
+	
 }

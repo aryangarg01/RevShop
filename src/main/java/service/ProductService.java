@@ -25,7 +25,7 @@ public class ProductService {
 			while (rs.next()) {
 				ProductDTO product = new ProductDTO(rs.getInt("product_id"), rs.getInt("category_id"),
 						rs.getString("product_name"), rs.getDouble("price"), rs.getString("description"),
-						rs.getInt("quantity"), rs.getInt("threshold_quantity"), rs.getInt("discount"));
+						rs.getInt("quantity"), rs.getInt("threshold_quantity"), rs.getInt("discount"), rs.getString("img_url"));
 				String type = catService.getCategoryType(rs.getInt("category_id"));
 				product.setCategoryType(type);
 				allProducts.add(product);
@@ -36,7 +36,7 @@ public class ProductService {
 		return allProducts;
 	}
 
-	public void updateProduct(Product product) {
+	public void updateProduct(ProductDTO product) {
 		productDAO.updateProduct(product);
 	}
 
@@ -45,7 +45,10 @@ public class ProductService {
 	}
 
 	public ProductDTO getSingleProductDetail(int productId) {
-		return productDAO.getProduct(productId);
+		ProductDTO product = productDAO.getProduct(productId);
+		String category = catService.getCategoryType(product.getCategoryId());
+		product.setCategoryType(category);
+		return product;
 	}
 
 	public List<ProductDTO> getAllProductsForCustomers() {
@@ -55,7 +58,7 @@ public class ProductService {
 			while (rs1.next()) {
 				ProductDTO product = new ProductDTO(rs1.getInt("product_id"), rs1.getInt("category_id"),
 						rs1.getString("product_name"), rs1.getDouble("price"), rs1.getString("description"),
-						rs1.getInt("quantity"), rs1.getInt("threshold_quantity"), rs1.getInt("discount"));
+						rs1.getInt("quantity"), rs1.getInt("threshold_quantity"), rs1.getInt("discount"), rs1.getString("img_url"));
 				String type = catService.getCategoryType(rs1.getInt("category_id"));
 				product.setCategoryType(type);
 				allProducts.add(product);
@@ -73,7 +76,7 @@ public class ProductService {
 			while (rs.next()) {
 				allProductsByCategory.add(new ProductDTO(rs.getInt("product_id"), rs.getInt("category_id"),
 						rs.getString("product_name"), rs.getDouble("price"), rs.getString("description"),
-						rs.getInt("quantity"), rs.getInt("threshold_quantity"), rs.getInt("discount")));
+						rs.getInt("quantity"), rs.getInt("threshold_quantity"), rs.getInt("discount"), rs.getString("img_url")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

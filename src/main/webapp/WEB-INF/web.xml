@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" version="5.0">
-  <servlet>
-    <description></description>
-    <display-name>UserServlet</display-name>
-    <servlet-name>UserServlet</servlet-name>
-    <servlet-class>servlets.UserServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UserServlet</servlet-name>
-    <url-pattern>/UserServlet</url-pattern>
-  </servlet-mapping>
   <display-name>rev_shop_demo</display-name>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
@@ -88,5 +78,45 @@
   <servlet-mapping>
     <servlet-name>WishlistServlet</servlet-name>
     <url-pattern>/api/v1/wishlist</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateProduct</display-name>
+    <servlet-name>UpdateProduct</servlet-name>
+    <servlet-class>servlets.UpdateProduct</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateProduct</servlet-name>
+    <url-pattern>/api/v1/updateProduct</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Order</display-name>
+    <servlet-name>Order</servlet-name>
+    <servlet-class>servlets.Order</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Order</servlet-name>
+    <url-pattern>/api/v1/order</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TrackOrders</display-name>
+    <servlet-name>TrackOrders</servlet-name>
+    <servlet-class>servlets.TrackOrders</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TrackOrders</servlet-name>
+    <url-pattern>/api/v1/trackOrders</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SellerOrders</display-name>
+    <servlet-name>SellerOrders</servlet-name>
+    <servlet-class>servlets.SellerOrders</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SellerOrders</servlet-name>
+    <url-pattern>/api/v1/allOrders</url-pattern>
   </servlet-mapping>
 </web-app>

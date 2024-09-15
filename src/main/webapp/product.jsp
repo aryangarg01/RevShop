@@ -25,13 +25,18 @@
 					</div>
 					<div class="mb-3">
 						<label for="description" class="form-label">Description
-							address</label> <textarea class="form-control"
+							</label> <textarea class="form-control"
 							id="description" name="description"></textarea>
 					</div>
 					<div class="mb-3">
 						<label for="price" class="form-label">Price
 							</label> <input class="form-control"
 							id="price" name="price">
+					</div>
+					<div class="mb-3">
+						<label for="image" class="form-label">Image URL
+							</label> <input class="form-control"
+							id="image" name="image">
 					</div>
 						<div class="mb-3">
 						<label for="quantity" class="form-label">Quantity
@@ -51,7 +56,7 @@
 					<div
 						class="col-lg-12">
 							<label for="category" class="form-label">Choose the Category
-							address</label>
+							</label>
 						<select name="category" class="form-select" id="category"
 							aria-label="Default select example">
 							<% List<String> categories = (ArrayList<String>)request.getAttribute("categories");  

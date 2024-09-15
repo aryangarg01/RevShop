@@ -10,8 +10,9 @@ public class Product {
 	private int quantity;
 	private int thresholdQty;
 	private int discount;
+	private String imgUrl;
 	
-	public Product(int userId, int categoryId, String prodName, double price, String description, int quantity, int thresholdQty, int discount) {
+	public Product(int userId, int categoryId, String prodName, double price, String description, int quantity, int thresholdQty, int discount, String imgUrl) {
 		this.setPrice(price);
 		this.setProdName(prodName);
 		this.setQuantity(quantity);
@@ -20,6 +21,7 @@ public class Product {
 		this.categoryId = categoryId;
 		this.thresholdQty = thresholdQty;
 		this.discount = discount;
+		this.imgUrl = imgUrl;
 	}
 	
 	public String getProdName() {
@@ -92,6 +94,14 @@ public class Product {
 
 	public void setDiscount(int discount) {
 		this.discount = discount;
+	}
+
+	public String getImgUrl() {
+		return imgUrl;
+	}
+
+	public void setImgUrl(String imgUrl) {
+		this.imgUrl = imgUrl;
 	}
 	
 	

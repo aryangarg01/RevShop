@@ -14,30 +14,27 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<h1>Welcome User!</h1>
-	<a href="/rev_shop_demo/api/v1/product" class="btn btn-primary">Add
-		the Product</a>
+	<%@include file="sellerNav.jsp" %>	
 	<div class="d-flex">
 		<%
 		List<ProductDTO> list = (ArrayList<ProductDTO>) request.getAttribute("products");
 		for (ProductDTO i : list) {
 		%>
-		<div class="card m-2" style="width: 18rem;">
-			<img src="..." class="card-img-top" alt="product-img">
+		<div class="card m-4" style="width: 350px;">
+			<img style="height: 400px; width: 100%;" src="<%= i.getImgUrl() %>" class="card-img-top" alt="product-img">
 			<div class="card-body">
 				<h5 class="card-title">
 					<%=i.getProdName()%></h5>
 				<p class="card-text">
-					Description:
 					<%=i.getDescription()%></p>
 				<ul class="list-group list-group-flush">
-					<li class="list-group-item">Price: <%= i.getPrice() %></li>
+					<li class="list-group-item">Price: $<%= i.getPrice() %></li>
 					<li class="list-group-item">Quantity: <%= i.getQuantity() %></li>
 					<li class="list-group-item">Threshold Quantity:  <%= i.getThresholdQty() %></li>
 					<li class="list-group-item">Category: <%= i.getCategoryType() %></li>
 				</ul>
-				<a href="#" class="btn btn-primary btn-sm">Update</a> <a href="#"
-					class="btn btn-primary btn-sm" onclick="deleteProduct(<%= i.getProdId() %>)">Delete</a>
+				<a class="btn btn-success btn-sm" href="/rev_shop_demo/api/v1/updateProduct?id=<%= i.getProdId() %>">Update</a> <a
+					class="btn btn-danger btn-sm" onclick="deleteProduct(<%= i.getProdId() %>)">Delete</a>
 			</div>
 		</div>
 		<%
@@ -51,7 +48,7 @@
 		<script>
 		const deleteProduct = (productId) => {
 			fetch("/rev_shop_demo/api/v1/product?id="+productId, {
-				method: "DELETE",
+				method: "DELETE"
 			}).then((response)=>{
 				console.log(response);
 			}).then((data)=>{

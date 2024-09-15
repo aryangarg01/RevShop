@@ -8,9 +8,10 @@ import jakarta.servlet.http.HttpSession;
 import service.CartService;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 import dto.ProductDTO;
+import entity.Cart;
 import exception.InvalidException;
 
 public class CartServlet extends HttpServlet {
@@ -25,23 +26,40 @@ public class CartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("loggedInUserID");
+		List<Cart> cartProducts = new ArrayList<>();
+		try {
+			cartProducts = cartService.viewCart(userId);
+		} catch (InvalidException e) {
+			e.printStackTrace();
+		}
 		List<ProductDTO> products = cartService.getProductFromCart(userId);
 		request.setAttribute("allProducts", products);
+		request.setAttribute("cart", cartProducts);
 		request.getRequestDispatcher("/cart.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int productId = Integer.parseInt(request.getParameter("id"));
-		HttpSession session = request.getSession();
-		int userId = (int) session.getAttribute("loggedInUserID");
+		int userId = (int) request.getSession().getAttribute("loggedInUserID");
 		try {
 			cartService.addToCart(userId, productId, 1);
 		} catch (InvalidException e) {
 			e.printStackTrace();
 		}
+		response.sendRedirect("/rev_shop_demo/api/v1/cart");
 	}
 
-	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int productId = Integer.parseInt(request.getParameter("id"));
+		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		cartService.updateQuantity(quantity, productId, (int) request.getSession().getAttribute("loggedInUserID"));
+		response.sendRedirect("/rev_shop_demo/api/v1/cart");
+	}
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		int productId = Integer.parseInt(request.getParameter("id"));
+		cartService.removeProduct(productId, (int) request.getSession().getAttribute("loggedInUserID"));
+		response.sendRedirect("/rev_shop_demo/api/v1/cart");
 		
 	}
 }

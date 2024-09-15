@@ -23,12 +23,13 @@ public class CartDAO {
 		}
 	}
 	
-	public void deleteProductFromCart(int prodId) {
-		String query = "Delete from cart where product_id = ?";
+	public void deleteProductFromCart(int prodId, int userId) {
+		String query = "Delete from cart where product_id = ? and buyer_id = ?";
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setInt(1, prodId);
-			ps.executeUpdate();
+			ps.setInt(2, userId);
+			ps.execute();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -46,4 +47,18 @@ public class CartDAO {
 		}
 		return rs;
 	}
+	
+	public void updateQuantityOfProduct(int quantity, int productId, int userId) {		
+		String query = "Update cart set quantity = ? where product_id = ? and buyer_id = ?";
+		try {
+			PreparedStatement ps = connection.prepareStatement(query);
+			ps.setInt(1, quantity);
+			ps.setInt(2, productId);
+			ps.setInt(3, userId);
+			ps.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }

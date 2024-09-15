@@ -1,5 +1,6 @@
 package servlets;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,11 +23,15 @@ public class WishlistServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("Hello Get method");
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("loggedInUserID");
+		System.out.println("Userid" + userId);
 		List<ProductDTO> products = wishlistService.getProductsFromWishlist(userId);
+		System.out.println("Products" + products);
 		request.setAttribute("allProducts", products);
-		request.getRequestDispatcher("/wishlist.jsp").forward(request, response);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/wishlist.jsp");
+		requestDispatcher.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,13 +39,14 @@ public class WishlistServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		int userId = (int) session.getAttribute("loggedInUserID");
 		wishlistService.addToWishlist(userId, productId);
+		response.sendRedirect("/rev_shop_demo/api/v1/wishlist");
+//		response.setStatus(200);
 	}
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int productId = Integer.parseInt(request.getParameter("id"));
-		System.out.println(productId+ " Hello");
-		HttpSession session = request.getSession();
-		int userId = (int) session.getAttribute("loggedInUserID");
+		int userId = (int) request.getSession().getAttribute("loggedInUserID");
 		wishlistService.deleteFromWishlist(productId, userId);
+		response.sendRedirect("/rev_shop_demo/api/v1/wishlist");
 	}
 }

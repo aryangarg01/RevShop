@@ -19,7 +19,6 @@ public class WishlistService {
 	}
 	
 	public void addToWishlist(int buyerId, int productId) {
-		System.out.println("Service Method");
 		wishlistDAO.addProductToWishlist(buyerId, productId);
 	}
 	

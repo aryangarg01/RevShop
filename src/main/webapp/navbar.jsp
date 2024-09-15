@@ -23,7 +23,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">RevShop</a>
+			<a class="navbar-brand">RevShop</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
 				aria-controls="navbarNavAltMarkup" aria-expanded="false"
@@ -32,7 +32,7 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 				<div class="navbar-nav">
-					<a class="nav-link" aria-current="page" href="#">Home</a> <a
+					<a class="nav-link" aria-current="page" href="/rev_shop_demo">Home</a> <a
 						class="nav-link" href="/rev_shop_demo/api/v1/login">Login</a> <a class="nav-link" href="/rev_shop_demo/api/v1/register">Register</a>
 				</div>
 			</div>

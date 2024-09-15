@@ -4,7 +4,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import service.CategoryService;
 import service.ProductService;
 
@@ -34,12 +33,25 @@ public class Product extends HttpServlet {
 		double price = Double.parseDouble(request.getParameter("price"));
 		int category = Integer.parseInt(request.getParameter("category"));
 		int discount = Integer.parseInt(request.getParameter("discount"));
-		
-		HttpSession session = request.getSession();
-		int userId = (int) session.getAttribute("loggedInUserID");
-		entity.Product product = new entity.Product(userId, category, productName, price, description, quanity, thresholdQuantity, discount);
+		String imgUrl = request.getParameter("image");
+
+		int userId = (int) request.getSession().getAttribute("loggedInUserID");
+		entity.Product product = new entity.Product(userId, category, productName, price, description, quanity, thresholdQuantity, discount, imgUrl);
 		prodService.addProductToDB(product);
+		request.getRequestDispatcher("/sellerDashboard.jsp").forward(request, response);
 	}
+	
+//	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		int productId = Integer.parseInt(request.getParameter("id"));
+//		System.out.println(productId);
+//		ProductDTO product = prodService.getSingleProductDetail(productId);
+//		CategoryService catService = new CategoryService();
+//		List<String> categories = catService.getCategories();
+//		request.setAttribute("categories", categories);
+//		request.setAttribute("product", product);
+//		System.out.print(product);
+//		request.getRequestDispatcher("/product.jsp").forward(request, response);
+//	}
 	
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int productId = Integer.parseInt(request.getParameter("id"));

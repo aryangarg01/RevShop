@@ -29,9 +29,7 @@ public class WishlistDAO {
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setInt(1, buyerId);
 			ps.setInt(2, productId);
-			int rows = ps.executeUpdate();
-			System.out.println("affected rows: " + rows);
-			System.out.println("Buyer ID: " + buyerId + " " + "Product ID: " + productId);
+			ps.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
 		}	

@@ -8,16 +8,25 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
+
+ <body>
 	<%@ include file="buyerNav.jsp"%>
-	<h1>Hello</h1>
+	<% List<ProductDTO> list = (ArrayList<ProductDTO>) request.getAttribute("allProducts"); %>
+	<!-- <form action="/rev_shop_demo/api/v1/user" method="post">
+		<select class="form-select" name="category">
+			<% for (ProductDTO i : list) {%>
+			<option value="<%= i.getCategoryType() %>"><%= i.getCategoryType() %></option>
+			<%} %>
+		</select>
+		<button class="btn btn-outline-success" type="submit">Search</button>
+		</form>
+	 -->
 	<div class="d-flex">
 		<%
-		List<ProductDTO> list = (ArrayList<ProductDTO>) request.getAttribute("allProducts");
 		for (ProductDTO i : list) {
 		%>
-		<div class="card m-2" style="width: 18rem;">
-			<img src="..." class="card-img-top" alt="product-img">
+		<div class="card m-4" style="width: 350px;">
+			<img style="height: 400px; width: 100%;" src="<%= i.getImgUrl() %>" class="card-img-top" alt="product-img">
 			<div class="card-body">
 				<h5 class="card-title">
 					<%=i.getProdName()%></h5>
@@ -51,8 +60,6 @@
 				method: "POST"
 			}).then((response)=>{
 				console.log(response);
-			}).then((data)=>{
-				console.log(data);
 			}).catch((error)=>{
 				console.log(error);
 			})
@@ -60,8 +67,6 @@
 		
 		
 		function addToCart(productId) {
-			console.log("hello");
-			const quantity = document.getElementById("quantity");
 			fetch("/rev_shop_demo/api/v1/cart?id="+productId, {
 				method: "POST"
 			}).then((response)=>{

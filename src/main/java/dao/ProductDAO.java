@@ -14,7 +14,7 @@ public class ProductDAO {
 	}
 	
 	public void addProduct(Product product) {
-		String query = "Insert into products (product_name, price, description, quantity, user_id, category_id, threshold_quantity) values (?,?,?,?,?,?,?)";
+		String query = "Insert into products (product_name, price, description, quantity, user_id, category_id, threshold_quantity, img_url) values (?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setString(1, product.getProdName());
@@ -24,6 +24,7 @@ public class ProductDAO {
 			ps.setInt(5, product.getUserId());
 			ps.setInt(6, product.getCategoryId());
 			ps.setInt(7, product.getThresholdQty());
+			ps.setString(8, product.getImgUrl());
 			ps.execute();
 		}
 		catch(Exception e) {
@@ -57,8 +58,8 @@ public class ProductDAO {
 		return rs;
 	}
 	
-	public void updateProduct(Product product) {
-		String query = "Update products set product_name = ?, quantity= ?, description = ?, price = ?, threshold_quantity = ? where product_id = ? and user_id = ?";
+	public void updateProduct(ProductDTO product) {
+		String query = "Update products set product_name=?, quantity=?, description=?, price=?, threshold_quantity=?, img_url=?, category_id= ?, discount=? where product_id = ?";
 		try {
 			PreparedStatement ps = connection.prepareStatement(query);
 			ps.setString(1, product.getProdName());
@@ -66,8 +67,10 @@ public class ProductDAO {
 			ps.setString(3, product.getDescription());
 			ps.setDouble(4, product.getPrice());
 			ps.setInt(5, product.getThresholdQty());
-			ps.setInt(6, product.getProdId());
-			ps.setInt(7, product.getUserId());
+			ps.setString(6, product.getImgUrl());
+			ps.setInt(7, product.getCategoryId());
+			ps.setInt(8, product.getDiscount());
+			ps.setInt(9, product.getProdId());
 			ps.executeUpdate();
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -93,7 +96,7 @@ public class ProductDAO {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {				
 				product = new ProductDTO(rs.getInt("user_id"), rs.getInt("category_id"), rs.getString("product_name"), rs.getDouble("price"),
-						rs.getString("description"), rs.getInt("quantity"), rs.getInt("threshold_quantity"), rs.getInt("discount"));
+						rs.getString("description"), rs.getInt("quantity"), rs.getInt("threshold_quantity"), rs.getInt("discount"), rs.getString("img_url"));
 				product.setProdId(rs.getInt("product_id"));
 			}
 		}
