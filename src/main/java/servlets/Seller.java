@@ -4,7 +4,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import service.ProductService;
 
 import java.io.IOException;
@@ -21,8 +20,15 @@ public class Seller extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		List<ProductDTO> data = productService.getAllProducts((int) session.getAttribute("loggedInUserID"));
+		Integer value = (Integer) request.getSession().getAttribute("loggedInUserID");
+		int userId = 0;
+		if(value == null) {
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
+		else {
+			userId = (int) value;
+		}
+		List<ProductDTO> data = productService.getAllProducts(userId);
 		request.setAttribute("products", data);
 		request.getRequestDispatcher("/sellerDashboard.jsp").forward(request, response);
 	}

@@ -14,7 +14,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-
+	<%@ include file="sellerNav.jsp" %>
 	<div class="container login d-flex flex-column justify-content-center">
 		<% ProductDTO product =  (ProductDTO) request.getAttribute("data"); %>
 		<h3 class="text-center mb-7">Product Details</h3>

@@ -46,6 +46,10 @@ public class UpdateProduct extends HttpServlet {
 		ProductDTO product = new ProductDTO(userId, category, productName, price, description, quanity, thresholdQuantity, discount, imgUrl);
 		product.setProdId(productId);
 		prodService.updateProduct(product);
+		
+		List<ProductDTO> data = prodService.getAllProducts(userId);
+		request.setAttribute("products", data);
+		request.getRequestDispatcher("/sellerDashboard.jsp").forward(request, response);
 //		request.getRequestDispatcher("/product.jsp").forward(request, response);
 	}
 

@@ -27,7 +27,14 @@ public class SellerOrders extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userId = (int) request.getSession().getAttribute("loggedInUserID");
+		Integer value = (Integer) request.getSession().getAttribute("loggedInUserID");
+		int userId = 0;
+		if(value == null) {
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
+		else {
+			userId = (int) value;
+		}
 		List<ProductDTO> products = productService.getAllProducts(userId);
 		List<OrderDetails> orderDetails = new ArrayList<>();
 		for(ProductDTO i: products) {

@@ -13,7 +13,8 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<div class="container login d-flex flex-column justify-content-center">
+<%@ include file="sellerNav.jsp" %>
+	<div class="container d-flex flex-column justify-content-center">
 		<h3 class="text-center mb-7">Product Details</h3>
 		<form action="/rev_shop_demo/api/v1/product" method="POST">
 			<div class="row">

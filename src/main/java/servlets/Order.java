@@ -40,7 +40,16 @@ public class Order extends HttpServlet {
 		String holderName = request.getParameter("holderName");
 		
 		BankService bankService = new BankService();
-		int userId = (int) request.getSession().getAttribute("loggedInUserID");
+		Integer value = (Integer) request.getSession().getAttribute("loggedInUserID");
+		int userId = 0;
+		
+		if(value == null) {
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
+		else {
+			userId = (int) value;
+		}
+		
 		bankService.addBankDetails(accountNumber, holderName, cvv, userId);
 		int transactionId = bankService.getTransactionId(accountNumber);
 		
@@ -69,6 +78,8 @@ public class Order extends HttpServlet {
 			productService.updateProduct(i);
 			cartService.removeProduct(i.getProdId(), userId);
 		}
+		
+		request.getRequestDispatcher("/successOrder.jsp").forward(request, response);
 	}
 
 }

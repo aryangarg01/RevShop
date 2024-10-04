@@ -10,6 +10,8 @@ import service.ProductService;
 import java.io.IOException;
 import java.util.*;
 
+import dto.ProductDTO;
+
 public class Product extends HttpServlet {
 	ProductService prodService = new ProductService();
 	private static final long serialVersionUID = 1L;
@@ -35,9 +37,19 @@ public class Product extends HttpServlet {
 		int discount = Integer.parseInt(request.getParameter("discount"));
 		String imgUrl = request.getParameter("image");
 
-		int userId = (int) request.getSession().getAttribute("loggedInUserID");
+		Integer value = (Integer) request.getSession().getAttribute("loggedInUserID");
+		int userId = 0;
+		if(value == null) {
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
+		else {
+			userId = (int) value;
+		}
 		entity.Product product = new entity.Product(userId, category, productName, price, description, quanity, thresholdQuantity, discount, imgUrl);
 		prodService.addProductToDB(product);
+		
+		List<ProductDTO> data = prodService.getAllProducts(userId);
+		request.setAttribute("products", data);
 		request.getRequestDispatcher("/sellerDashboard.jsp").forward(request, response);
 	}
 	

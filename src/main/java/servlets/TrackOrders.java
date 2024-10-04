@@ -26,7 +26,14 @@ public class TrackOrders extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userId = (int) request.getSession().getAttribute("loggedInUserID");
+		Integer value = (Integer) request.getSession().getAttribute("loggedInUserID");
+		int userId = 0;
+		if(value == null) {
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
+		else {
+			userId = (int) value;
+		}
 		List<entity.Order> ordersOfBuyer = orderService.getAllOrdersId(userId);
 		List<OrderDetails> orderDetails = new ArrayList<>();
 		List<ProductDTO> products = new ArrayList<>();

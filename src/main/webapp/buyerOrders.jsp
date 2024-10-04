@@ -42,9 +42,8 @@
 	<%@ include file="/buyerNav.jsp"%>
 	<div class="container">
 		<%if (!list.isEmpty()) {%>
-		<% int count = 1; %>
 			<% for(Order j: orders){ %>
-			Order #<strong><%= count++ %></strong>
+			Order #<strong><%= j.getOrderId() %></strong>
 			<table class="table table-striped">
 			<thead>
 				<tr>
@@ -53,6 +52,7 @@
 					<th scope="col">Price Per Unit</th>
 					<th scope="col">Category</th>
 					<th scope="col">Quantity</th>
+					<th scope="col">Order Status</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -65,6 +65,7 @@
 					<td><%=i.getPrice()%></td>
 					<td><%=i.getCategoryType()%></td>
 					<td><%= details.get(list.indexOf(i)).getQuantity() %></td>
+					<td><%= j.getShippingStatus() %></td>
 				</tr>
 				<% } 
 				}	%>

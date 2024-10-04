@@ -25,10 +25,15 @@ public class WishlistServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Hello Get method");
 		HttpSession session = request.getSession();
-		int userId = (int) session.getAttribute("loggedInUserID");
-		System.out.println("Userid" + userId);
+		Integer value = (Integer) session.getAttribute("loggedInUserID");
+		int userId = 0;
+		if(value == null) {
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+		}
+		else {
+			userId = (int) value;
+		}
 		List<ProductDTO> products = wishlistService.getProductsFromWishlist(userId);
-		System.out.println("Products" + products);
 		request.setAttribute("allProducts", products);
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/wishlist.jsp");
 		requestDispatcher.forward(request, response);

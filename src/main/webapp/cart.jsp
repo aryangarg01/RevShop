@@ -65,12 +65,13 @@
 					<td><%=i.getDescription()%></td>
 					<td><%=i.getPrice()%></td>
 					<td><%=i.getCategoryType()%></td>
-					<td><button
-							onclick="increment(<%=i.getProdId()%>, <%=cart.get(idx).getQuantity()%>)"
-							class="btn btn-sm btn-primary">+</button> <%=cart.get(idx).getQuantity()%>
-						<button
-							onclick="decrement(<%=i.getProdId()%>, <%=cart.get(idx).getQuantity()%>)"
-							class="btn btn-sm btn-primary">-</button></td>
+					<td>
+						<button	onclick="increment(<%=i.getProdId()%>, <%=cart.get(idx).getQuantity()%>)"
+								class="btn btn-sm btn-primary">+</button>
+								 <%=cart.get(idx).getQuantity()%>
+							<button onclick="decrement(<%=i.getProdId()%>, <%=cart.get(idx).getQuantity()%>)"
+								class="btn btn-sm btn-primary">-</button>
+					</td>
 					<td><button
 							onclick="deleteProductFromCart(<%=i.getProdId()%>)"
 							class="btn btn-sm btn-danger">Remove From Cart</button></td>

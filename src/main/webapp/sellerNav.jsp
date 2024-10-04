@@ -29,55 +29,42 @@
 }
 
 .navbar-nav .nav-link {
-    color: #343a40; /* Dark grey link text */
+    color: #343a40;
     font-size: 1rem;
-    padding: 0.5rem 1rem; /* Space between the links */
-    transition: color 0.3s ease-in-out; /* Smooth transition for hover */
+    padding: 0.5rem 1rem; 
+    transition: color 0.3s ease-in-out; 
 }
 
 .navbar-nav .nav-link:hover {
-    color: #007bff; /* Blue color on hover */
-    font-weight: bold; /* Make links bold when hovered */
+    color: #007bff;
+    font-weight: bold;
 }
 
 .navbar-nav .active {
-    color: #007bff; /* Active link color */
-    font-weight: bold; /* Emphasize the active link */
-}
-
-.form-control {
-    width: 250px; /* Fixed width for a clean look */
-    border-radius: 30px; /* Rounded corners */
-    border: 1px solid #ced4da; /* Subtle border */
-    padding: 0.5rem 1rem; /* Add padding inside the input */
-    transition: box-shadow 0.3s ease-in-out; /* Smooth shadow transition */
-}
-
-.form-control:focus {
-    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5); /* Blue shadow on focus */
-    border-color: #007bff; /* Border turns blue when focused */
+    color: #007bff;
+    font-weight: bold;
 }
 
 .btn-outline-success {
-    border-radius: 30px; /* Rounded buttons */
+    border-radius: 30px;
     padding: 0.5rem 1.5rem;
-    border-color: #28a745; /* Green border */
-    color: #28a745; /* Green text */
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+    border-color: #28a745;
+    color: #28a745;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-outline-success:hover {
-    background-color: #28a745; /* Green background on hover */
-    color: white; /* White text on hover */
+    background-color: #28a745;
+    color: white;
 }
 
 .btn-outline-primary {
     margin-left: 1rem;
-    border-radius: 30px; /* Rounded button */
+    border-radius: 30px;
     padding: 0.5rem 1.5rem;
     border-color: #007bff;
     color: #007bff;
-    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .btn-outline-primary:hover {

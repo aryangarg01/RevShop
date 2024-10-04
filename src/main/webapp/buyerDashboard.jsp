@@ -21,11 +21,11 @@
 		<button class="btn btn-outline-success" type="submit">Search</button>
 		</form>
 	 -->
-	<div class="d-flex">
+	<div class="d-flex row mx-4">
 		<%
 		for (ProductDTO i : list) {
 		%>
-		<div class="card m-4" style="width: 350px;">
+		<div class="card m-2 col-lg-3 px-0" style="width: 350px;">
 			<img style="height: 400px; width: 100%;" src="<%= i.getImgUrl() %>" class="card-img-top" alt="product-img">
 			<div class="card-body">
 				<h5 class="card-title">
